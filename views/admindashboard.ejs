@@ -1,0 +1,31 @@
+<%- include('./base/header.ejs')  %>
+<style>
+    .div{
+        border: 2px solid black;
+        height: 150px;
+        width: 15vw;
+        margin: 100px 40%;
+    }
+
+    .a{
+        margin: 8px 30%;
+
+    }
+
+    .btn{
+        height: 40px;
+        width: 100px;
+    }
+</style>
+<div class="div">
+    <div class="a">
+        <a href="/bookform" class="btn btn-warning w-40" >Add Book</a>
+    </div>
+    <div class="a">
+        <a class="btn btn-warning w-45" aria-current="page" href="/getallbooks"  >Books</a>
+    </div>
+    <div class="a">
+        <a class="btn btn-warning w-45" href="/getuser">Users List</a>
+    </div>
+</div>
+<%- include('./base/footer.ejs')  %>

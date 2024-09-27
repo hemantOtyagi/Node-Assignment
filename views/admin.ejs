@@ -1,47 +1,17 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Modern Flat Design Login Form Example</title>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-</head>
-<body>
-<!-- partial:index.partial.html -->
+
 <div class="login-page">
-  <div class="form">
-      <form class="login-form" action="/login" method="get">
-        <input type="text" placeholder="email" name="email"/>
-        <input type="password" placeholder="password" name="password"/>
-        <button>login</button>
-        <p class="message">Not registered? <a href="#">Create an account</a></p>
-        <p><a href="/adminpage" class="message" style="color: #4CAF50;text-decoration: none;">Login as Admin</a></p>
-      </form>
-    <form class="register-form" action="/signup" method="post">
-      <input type="text" placeholder="First Name" name="firstName"/>
-      <input type="text" placeholder="Last Name" name="lastName"/>
-      <input type="text" placeholder="Country" name="country"/>
-      <input type="text" placeholder="Mobile Number" name="mobileNo"/>
-      <input type="email" placeholder="Email Address" name="email"/>
-      <input type="password" placeholder="password" name="password"/>
-      <input type="password" placeholder="Confirm Password" name="confirmPassword"/>
-      <button>create</button>
-      <p class="message">Already registered? <a href="#">Sign In</a></p>
-    </form>
-    
-  </div>
+    <div class="form">
+        <form class="login-form" action="/admin" method="get">
+          <p> Admin LogIn</p>
+            <input type="text" placeholder="Admin email" name="adminEmail"/>
+            <input type="password" placeholder="password" name="adminPassword"/>
+            <input type="password" placeholder="Secret Key" name="secretKey"/>
+            <button>login</button>
+          </form>
+    </div>
 </div>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script>    $('.message a').click(function(){
-    $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
- });</script>
-
-</body>
-</html>
-
-
-
-
-
 
 
 
@@ -62,7 +32,6 @@
   margin: 0 auto 100px;
   padding: 45px;
   text-align: center;
-  border-radius: 5%;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 .form input {
@@ -149,3 +118,5 @@ body {
   -moz-osx-font-smoothing: grayscale;      
 }
 </style>
+
+
