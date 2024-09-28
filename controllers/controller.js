@@ -1,21 +1,27 @@
+const bcrypt = require('bcrypt');
 const Student  = require('../models/Student');
-const Admin = require('../models/Admin');
-const Book = require('../models/Book')
+// const Admin = require('../models/Admin');
+const Book = require('../models/Book');
+const saltRound = 10;
 
 
 async function signup(req, res) {
     try{
-        if(req.body.password==req.body.confirmPassword){
-            const response = new Student(req.body);
-            response.studentType=2;
-            console.log(req.body);
-            await response.save();
-            console.log('data added sucessfully');
-            res.render('home');
+        //first we need to check wheather email already exist
+        let userExists = Student.findOne({email:req.params.email});
+        if(userExists){
+            return res.status(400).json({message:"Email already exist"});
         }
         else{
-            console.log('Password and confirmPassword mustt be same '); 
-            
+            console.log('Recieved form data',req.body); //Log the form data
+            let encryptpassword = bcrypt.hashSync(req.body.password, saltRound);
+            console.log(encryptpassword);
+            const response = new Student(req.body);
+            response.studentType=2;
+            response.password = encryptpassword;
+            await response.save();
+            console.log('data added sucessfully');
+            res.render('home'); 
         }
         
     }catch(error){
@@ -26,19 +32,32 @@ async function signup(req, res) {
 
 async function login(req, res) {
     try{ 
-         const email = req.query.email;
-         const password = req.query.password;
-         const student = await Student.findOne({ email: email,
-            password: password });
-         
-            if (student) {
-                console.log(student);
-                res.render('userdashboard');
+         const email = req.body.email;
+         const password = req.body.password;
+         const student = await Student.findOne({ email: email,});
+         if(!student){
+            res.end("<h1> User doesnt Exists</h1>")
+         }else{
+             console.log(student.password,"pw");//encrypted
+             console.log(req.body.password,"entered password");//typed
+            let isMatch = bcrypt.compare(password, student.password);
+            if(isMatch){
+                if(student.studentType==1){//for Admin
+                    const book = await Book.find({});
+                    console.log(book);
+                    res.render('admindashboard',{book:book});
+                     
+                }
+                else{//for normal user
+                    res.render('userdashboard');
+                }
+                
             }
             else{
-                   console.log("user doesnt exist");
-                   res.end('user doesnt exist invalid');
+                res.end("<h1> Incorrect Password</h1>")
             }
+         }
+
         }catch(error){
             console.log(error,'error');
         }
@@ -46,45 +65,17 @@ async function login(req, res) {
 
 
 
-async function admin(req, res){
-    try{
-        let adminPassword = req.query.adminPassword;
-        let adminEmail = req.query.adminEmail;
-        let adminSecretKey = req.query.secretKey;
-        const admin = await Admin.findOne({email: adminEmail , password: adminPassword , secretKey: adminSecretKey});
-        console.log(admin);
-        if(admin){
-            console.log('admin verifieed');
-            res.render('admindashboard');
-        }
-        else{
-            console.log('admin not verified');
-            res.end('admin not verified');
-        }
-    }catch(error){
-        console.log(error,'error');
-    }
-}
-
 
 
 async function getuser(req, res){
     try{
-        const users = await  Student.find({})
+        const users = await  Student.find({studentType:2})
         if(users){
            res.render('userslist',{users:users})
         }
         else{
             console.log('no users');
         }
-    }catch(error){
-        console.log(error,'error');
-    }
-}
-
-async function adminpage(req, res){
-    try{
-         res.render('admin');
     }catch(error){
         console.log(error,'error');
     }
@@ -182,7 +173,8 @@ async function getallbooks(req, res){
 
 async function getadmindashboard(req, res){
     try{
-         res.render('admindashboard');
+        const book = await Book.find({})
+        res.render('updatedbooklist',{book:book});
     }catch(error){
         console.log(error,'error')
     }
@@ -194,19 +186,60 @@ async function getadmindashboard(req, res){
 async function getbookforEdit(req, res){
     try{
         let id = req.params.id;
-        let book = await Book.find({_id:id});
-        res.render('editbook',{book:book});
+        let books = await Book.findOne({_id:id});
+        res.render('editbook',{book:books});
     }catch(error){
         console.log(error,'error')
     }    
+}
+
+async function updatebook(req, res ){
+    try{
+        let id = req.params.id;
+        console.log(id);
+        const book = await Book.findOne({_id:id});
+        if(book){
+        console.log('find book by id')
+        console.log(book)
+        book.bookAuthor=req.body.bookAuthor;
+        book.bookImage=req.body.bookImage;
+        book.bookTitle=req.body.bookTitle;
+        book.bookDescription=req.body.bookDescription;
+        book.bookPrice=req.body.bookPrice;
+        book.bookPublisher=req.body.bookPublisher;
+        book.bookCategory=req.body.bookCategory;
+        book.bookQuantity=req.body.bookQuantity;
+        book.bookRating=req.body.bookRating;
+        book.bookStatus=req.body.bookStatus;
+        await book.save();
+        const books = await Book.find({})
+        res.render('updatedbooklist',{book:books});
+        }
+        else{
+            console.log('book not found')
+        }
+    }catch(error){
+        console.log(error,'error')
+    }
+    
+}
+
+async function deletebook(req , res ){
+    try{
+        let id = req.params.id;
+        const book = await Book.findOneAndDelete({_id:id});
+        const books = await Book.find({})
+        res.render('updatedbooklist',{book:books});
+    }catch(error){
+        console.log(error,'error')
+    }
+    
 }
 
 
 module.exports = {
     signup,
     login,
-    adminpage,
-    admin,
     getuser,
     getStudentForEdit,
     updateuser,
@@ -214,5 +247,8 @@ module.exports = {
     bookform,
     addnewbook,
     getallbooks,
-    getadmindashboard
+    getadmindashboard,
+    updatebook,
+    getbookforEdit,
+    deletebook
 }

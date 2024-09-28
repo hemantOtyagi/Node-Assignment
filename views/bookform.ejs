@@ -1,14 +1,14 @@
 <%- include('./base/header.ejs') %>
 
 <div class="container"></div>
-    <div class="alert bg-success my-3">
+    <div class="alert bg-success ">
          <h2 class="text-center" style="color: white;">Add Book</h2>
     </div>
 </div>
 <div class="container">
     <div class="row">
         <div class="col"></div>
-        <div class="col" style="background-color: #a2b9bc ; border-radius: 2%;">
+        <div class="col" style="background-color: #070b0b47 ; border-radius: 2%;">
             <form action="/add/new/book" method="post">
                 <div>
                     <label for="" class="form-label">Book Title</label>
@@ -53,6 +53,9 @@
                 <div>
                     <label for="" class="form-label">Book Rating</label>
                     <input type="number" name="bookRating" class="form-control" >
+                </div>
+                <div>
+                    <input type="file" class="form-labrl">
                 </div>
                 <input type="submit" value="Add Book" class="btn btn-warning my-3 w-100"></input>
 

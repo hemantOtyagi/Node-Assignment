@@ -1,16 +1,16 @@
 <%- include('./base/header.ejs') %>
 <div class="container"></div>
     <div class="row" style="width:auto;">
-        <h4 class="text-centre my-3" style="text-align: center;">Book List</h4>
-        <table class="table-text-centre" style="text-align: center;">
+        <h4 class="text-centre my-3" style="text-align: center;">Book List <hr></h4>
+        <table class="table table-striped table-hover" style="text-align: center;">
             <thead>
                 <tr>
+                    <th>Book Image</th>
                     <th>Book Title</th>
                     <th>Book Author</th>
                     <th>Book Price</th>  
                     <th>Book Description</th>
                     <th>Book Language</th>
-                    <th>Book Image</th>
                     <th>Book Category</th>
                     <th>Book Status</th>
                     <th>Book Quantity</th>
@@ -19,19 +19,19 @@
             </thead>
             <% book.forEach((book)=>{%>
                 <tr>
+                    <td><%= book.bookImage %></td>
                     <td><%= book.bookTitle %></td> 
                     <td><%= book.bookAuthor %></td>
                     <td><%= book.bookPrice %></td>
                     <td><%= book.bookDescription %></td>
                     <td><%= book.bookLanguage %></td>
-                    <td><%= book.bookImage %></td>
                     <td><%= book.bookCategory %></td>
                     <td><%= book.bookStatus %></td>
                     <td><%= book.bookQuantity %></td>
                     <td><%= book.bookRating %></td>
                     <td>
-                        <a href="/edit/book/page/<%= book._id %>" class="btn btn-warning w-40">Edit</a>
-                        <a href="/delete/book/page/<%= book._id %>" class="btn btn-danger w-40">Delete</a>
+                        <a href="/edit/book/page/<%= book._id %>" class="btn btn-success rounded-1">Edit</a>
+                        <a href="/delete/book/page/<%= book._id %>" class="btn btn-danger rounded-1">Delete</a>
                     </td>
                 </tr>
            <% }) %>

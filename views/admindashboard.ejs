@@ -1,23 +1,58 @@
 <%- include('./base/header.ejs')  %>
-<style>
-    .div{
-        border: 2px solid black;
-        height: 150px;
-        width: 15vw;
-        margin: 100px 40%;
-    }
+<div class="container"></div>
+    <div class="row" style="width:auto;">
+        <h4 class="text-centre my-3" style="text-align: center;">Book List <hr></h4>
+        <table class="table table-striped table-hover" style="text-align: center;">
+            <thead>
+                <tr>
+                    <th>Book Image</th>
+                    <th>Book Title</th>
+                    <th>Book Author</th>
+                    <th>Book Price</th>  
+                    <th>Book Description</th>
+                    <th>Book Language</th>
+                    <th>Book Category</th>
+                    <th>Book Status</th>
+                    <th>Book Quantity</th>
+                    <th>Book Rating</th>
+                </tr>
+            </thead>
+            <% book.forEach((book)=>{%>
+                <tr>
+                    <td><%= book.bookImage %></td>
+                    <td><%= book.bookTitle %></td> 
+                    <td><%= book.bookAuthor %></td>
+                    <td><%= book.bookPrice %></td>
+                    <td><%= book.bookDescription %></td>
+                    <td><%= book.bookLanguage %></td>
+                    <td><%= book.bookCategory %></td>
+                    <td><%= book.bookStatus %></td>
+                    <td><%= book.bookQuantity %></td>
+                    <td><%= book.bookRating %></td>
+                    <td>
+                        <a href="/edit/book/page/<%= book._id %>" class="btn btn-success rounded-1">Edit</a>
+                        <a href="/delete/book/page/<%= book._id %>" class="btn btn-danger rounded-1">Delete</a>
+                    </td>
+                </tr>
+           <% }) %>
+        </table>
+    </div>
+</div>
+<%- include('./base/footer.ejs')  %>
 
-    .a{
-        margin: 8px 30%;
 
-    }
 
-    .btn{
-        height: 40px;
-        width: 100px;
-    }
-</style>
-<div class="div">
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="div"></div>
     <div class="a">
         <a href="/bookform" class="btn btn-warning w-40" >Add Book</a>
     </div>
@@ -27,5 +62,4 @@
     <div class="a">
         <a class="btn btn-warning w-45" href="/getuser">Users List</a>
     </div>
-</div>
-<%- include('./base/footer.ejs')  %>
+</div> -->

@@ -14,7 +14,7 @@ router.post('/signup',(req, res)=>{
     Controller.signup(req, res);
 })
 
-router.get('/login',(req, res)=>{
+router.post('/login',(req, res)=>{
     Controller.login(req, res);
 })
 
@@ -58,8 +58,16 @@ router.get('/getadmindashboard',(req, res)=>{
     Controller.getadmindashboard(req, res);
 })
 
-router.get('edit/book/page/:id',(req , res)=>{
+router.get('/edit/book/page/:id',(req , res)=>{
     Controller.getbookforEdit(req, res);
+})
+
+router.post('/updated/book/page/:id',(req, res)=>{
+    Controller.updatebook(req, res);
+})
+
+router.get('/delete/book/page/:id',(req, res)=>{
+    Controller.deletebook(req, res);
 })
 
 module.exports =router
