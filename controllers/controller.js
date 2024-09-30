@@ -8,7 +8,8 @@ const saltRound = 10;
 async function signup(req, res) {
     try{
         //first we need to check wheather email already exist
-        let userExists = Student.findOne({email:req.params.email});
+        console.log(req.body.email)
+        let userExists = await Student.findOne({email:req.body.email});
         if(userExists){
             return res.status(400).json({message:"Email already exist"});
         }
