@@ -1,6 +1,12 @@
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
 const Controller = require('../controllers/controller')
+
+const upload = multer({
+    storage: multer.diskStorage({})
+})
+
 router.use(express.urlencoded({extended: false}));
 
 
@@ -16,14 +22,6 @@ router.post('/signup',(req, res)=>{
 
 router.post('/login',(req, res)=>{
     Controller.login(req, res);
-})
-
-router.get('/admin',(req, res)=>{
-    Controller.admin(req, res);
-})
-
-router.get('/adminpage',(req, res)=>{
-    Controller.adminpage(req, res);
 })
 
 router.get('/getuser',(req, res)=>{
@@ -46,7 +44,7 @@ router.get('/bookform',(req, res)=>{
     Controller.bookform(req, res);
 })
 
-router.post('/add/new/book',(req, res)=>{
+router.post('/add/new/book', upload.single('bookImage'),(req, res)=>{
     Controller.addnewbook(req, res);
 })
 

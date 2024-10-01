@@ -6,6 +6,7 @@
             <thead class="table-dark">
                 <tr>
                     <th>Book Image</th>
+                    <!-- <th>Author Image</th> -->
                     <th>Book Title</th>
                     <th>Book Author</th>
                     <th>Book Price</th>  
@@ -16,11 +17,12 @@
                     <th>Book Quantity</th>
                     <th>Book Rating</th>
                     <th>Action</th>
-                </tr>
+                </tr> 
             </thead>
             <% book.forEach((book)=>{%>
                 <tr>
-                    <td><%= book.bookImage %></td>
+                    <td><img src="<%= book.bookImage %>" width="40px" height="40px"></td>
+                    <!-- <td><img src="<%= book.authorImage %>" width="30px" height="30px"></td> -->
                     <td><%= book.bookTitle %></td> 
                     <td><%= book.bookAuthor %></td>
                     <td><%= book.bookPrice %></td>

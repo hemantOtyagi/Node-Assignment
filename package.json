@@ -12,10 +12,12 @@
   "dependencies": {
     "assignproject": "file:",
     "bcrypt": "^5.1.1",
+    "cloudinary": "^2.5.0",
     "ejs": "^3.1.10",
     "express": "^4.21.0",
     "mongoose": "^8.6.3",
     "mongoose-timestamps": "^0.0.1",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.7"
   }
 }

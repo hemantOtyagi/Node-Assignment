@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const Student  = require('../models/Student');
-// const Admin = require('../models/Admin');
 const Book = require('../models/Book');
+const cloudinary = require('cloudinary');
 const saltRound = 10;
 
 
@@ -150,16 +150,35 @@ async function bookform(req, res){
 
 async function addnewbook(req, res){
     try{
-        const newbook = new Book(req.body)
-        await newbook.save();
-        console.log('book added sucessfully');
-        const book = await Book.find({})
-        res.render('updatedbooklist',{book:book});
-         
-    }catch(error){
-        console.log(error,'error')
+        let book = new Book(req.body);
+        if (req.file) {
+          cloudinary.config({
+            cloud_name: "dz4fc14ue",
+            api_key: "435962617814222",
+            api_secret: "NY-b5838MrBvkPFs2WlpZmVYsFE"
+          });
+    
+          const result = await cloudinary.uploader.upload(req.file.path);
+          console.log(result.secure_url, "uploaded.secure_url");
+          book.bookImage = result.secure_url;
+        }
+    
+        // console.log("Request body:", req.body); // Log the request body
+        // console.log(req.file, "req.file");
+        await book.save();
+        let books = await Book.find({});
+        res.render("updatedbooklist", { book: books }); 
+        // Respond with the created book and a 201 status
+        // res.end("<h1>Uploading will ne completed soon...</h1>");
+      } catch (error) {
+        console.error("Something went wrong in book Controller", error);
+        res
+          .status(500)
+          .json({ message: "Failed to add book", error: error.message });
+      }
     }
-}
+
+
 
 
 async function getallbooks(req, res){

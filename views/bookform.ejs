@@ -9,54 +9,55 @@
     <div class="row">
         <div class="col"></div>
         <div class="col" style="background-color: #070b0b47 ; border-radius: 2%;">
-            <form action="/add/new/book" method="post">
+            <form action="/add/new/book" method="post" enctype="multipart/form-data">
                 <div>
-                    <label for="" class="form-label">Book Title</label>
+                    <label for="bookTitle" class="form-label">Book Title</label>
                     <input type="text" name="bookTitle" class="form-control" >
                 </div>
                 <div>
-                    <label for="" class="form-label">Book Author</label>
+                    <label for="bookAuthor" class="form-label">Book Author</label>
                     <input type="text" name="bookAuthor" class="form-control" >
                 </div>
                 <div>
-                    <label for="" class="form-label">Book Publisher</label>
+                    <label for="bookPublisher" class="form-label">Book Publisher</label>
                     <input type="text" name="bookPublisher" class="form-control" >
                 </div>
                 <div>
-                    <label for="" class="form-label">Book Price </label>
+                    <label for="bookPrice" class="form-label">Book Price </label>
                     <input type="number" name="bookPrice" class="form-control">
                 </div>
                 <div>
-                    <label for="" class="form-label">Book Description</label>
+                    <label for="bookDescription" class="form-label">Book Description</label>
                     <input type="text" name="bookDescription" class="form-control"  >
                 </div>
                 <div>
-                    <label for="" class="form-label">Book Language</label>
+                    <label for="bookLanguage" class="form-label">Book Language</label>
                     <input type="text" name="bookLanguage" class="form-control" >
                 </div>
                 <div>
-                    <label for="" class="form-label">Book Image</label>
-                    <input type="text" name="bookImage" class="form-control" >
-                </div>
-                <div>
-                    <label for="" class="form-label">Book Category</label>
+                    <label for="bookCategory" class="form-label">Book Category</label>
                     <input type="text" name="bookCategory" class="form-control" >
                 </div>
                 <div>
-                    <label for="" class="form-label">Book Status</label>
+                    <label for="bookStatus" class="form-label">Book Status</label>
                     <input type="text" name="bookStatus" class="form-control" >
                 </div>
                 <div>
-                    <label for="" class="form-label">Book Quantity</label>
+                    <label for="bookQuantity" class="form-label">Book Quantity</label>
                     <input type="number" name="bookQuantity" class="form-control" >
                 </div>
                 <div>
-                    <label for="" class="form-label">Book Rating</label>
+                    <label for="bookRating" class="form-label">Book Rating</label>
                     <input type="number" name="bookRating" class="form-control" >
                 </div>
                 <div>
-                    <input type="file" class="form-labrl">
+                    <label for="bookImage" class="form-label">Select Book Image</label>
+                    <input type="file" name="bookImage" class="form-control">
                 </div>
+                <!-- <div>
+                    <label for="authorImage" class="form-label"> Select Author Image</label>
+                    <input type="file" name="authorImage" class="form-control">
+                </div> -->
                 <input type="submit" value="Add Book" class="btn btn-warning my-3 w-100"></input>
 
             </form>

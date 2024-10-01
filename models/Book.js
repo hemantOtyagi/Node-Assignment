@@ -15,6 +15,7 @@ const bookSchema = new Schema({
     bookStatus: { type: String },
     bookQuantity: { type: Number },
     bookRating: { type: Number },
+    // authorImage: { type: String },
     createdAt:Date,
     updatedAt:Date
 })
